@@ -2,6 +2,7 @@
 
 - ##### [Gzip压缩](#gzip)
 - ##### [CDN加速](#cdn)
+- ##### [预加载](#prefetch)
 
 #### <span id = "gzip">Gzip压缩</span>
 
@@ -118,3 +119,29 @@ if (!window.VueRouter) Vue.use(Router)
 ```
 
 5. 完成, 当发布到线上环境时, 查看network下的`vue`, `vuex`, `vue-router` 会显示为CDN资源
+
+
+#### <span id="prefetch">预加载</span>
+
+>**利用浏览器空闲时间下载或预取指定资源, 缓存起来, 方便后续用户获取时能直接从缓存里拿到, 节省了加载时间**
+
+1. 示例
+```html
+<!-- 预加载某个完整网页 -->
+<link rel="prefetch" href="http://www.xxx.com/" />
+
+<!-- 预加载某个资源 -->
+<link rel="prefetch" href="http://www.xxx.com/js/a.js" as="script" />
+
+```
+
+2. 在Vue脚手架项目中可以配合一些其它设置 `vue.config.js`
+```js
+module.exports = {
+  chainWebpack: config => {
+    // 移除 prefetch 插件, 并手动操作, 
+    // 具体参阅(https://cli.vuejs.org/zh/guide/html-and-static-assets.html#preload)
+    config.plugins.delete('prefetch')
+  }
+}
+```
